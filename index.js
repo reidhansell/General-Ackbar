@@ -28,7 +28,7 @@ client.on('ready', () => {
         });
         cron.schedule(`0 ${((i * 2) + 5) % 24} * * *`, () => {
             const channel = client.channels.cache.get(channelId);
-            channel.send(`Building has begin. PVP begins in 30 minutes.`)
+            channel.send(`Building has begun. PVP begins in 30 minutes.`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
     }
