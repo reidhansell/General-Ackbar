@@ -2,7 +2,7 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const cron = require('node-cron');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const channelId = '1088842972558270485';
 
