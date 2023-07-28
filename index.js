@@ -26,5 +26,10 @@ client.on('ready', () => {
             channel.send(`${location} invasion in 15 minutes!`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
+        cron.schedule(`0 ${((i * 2) + 5) % 24} * * *`, () => {
+            const channel = client.channels.cache.get(channelId);
+            channel.send(`Building has begin. PVP begins in 30 minutes.`)
+                .catch(error => console.error(`Failed to send message: ${error}`));
+        });
     }
 });
