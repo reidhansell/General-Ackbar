@@ -17,7 +17,7 @@ client.on('ready', () => {
 
     for (let i = 0; i < 8; i++) {
         const location = locations[i % 3];
-        cron.schedule(`45 ${((i * 2) + 4) % 24} * * *`, () => {
+        cron.schedule(`45 ${((i * 2) + 3) % 24} * * *`, () => {
             const channel = client.channels.cache.get(channelId);
             if (!channel) {
                 console.error(`Channel with ID ${channelId} not found!`);
@@ -26,9 +26,14 @@ client.on('ready', () => {
             channel.send(`${location} invasion in 15 minutes!`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
-        cron.schedule(`0 ${((i * 2) + 5) % 24} * * *`, () => {
+        cron.schedule(`0 ${((i * 2) + 4) % 24} * * *`, () => {
             const channel = client.channels.cache.get(channelId);
             channel.send(`Building has begun. PVP begins in 30 minutes.`)
+                .catch(error => console.error(`Failed to send message: ${error}`));
+        });
+        cron.schedule(`30 ${((i * 2) + 4) % 24} * * *`, () => {
+            const channel = client.channels.cache.get(channelId);
+            channel.send(`PVP has begun.`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
     }
