@@ -14,26 +14,29 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
     const locations = ['Bestine', 'Daeric', 'Keren'];
+    const channel = client.channels.cache.get(channelId);
+    if (!channel) {
+        console.error(`Channel with ID ${channelId} not found!`);
+        return;
+    }
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 12; i++) {
         const location = locations[i % 3];
-        cron.schedule(`45 ${((i * 2) + 3) % 24} * * *`, () => {
-            const channel = client.channels.cache.get(channelId);
-            if (!channel) {
-                console.error(`Channel with ID ${channelId} not found!`);
-                return;
-            }
-            channel.send(`${location} invasion in 15 minutes!`)
+        
+        cron.schedule(`45 ${((i * 2) + 1) % 24} * * *`, () => {
+            const alertLocationIndex = (i - 1) < 0 ? locations.length - 1 : (i - 1) % locations.length;
+            const alertLocation = locations[alertLocationIndex];
+            channel.send(`${alertLocation} invasion in 15 minutes!`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
-        cron.schedule(`0 ${((i * 2) + 4) % 24} * * *`, () => {
-            const channel = client.channels.cache.get(channelId);
-            channel.send(`Building has begun. PVP begins in 30 minutes.`)
+
+        cron.schedule(`0 ${((i * 2)) % 24} * * *`, () => {
+            channel.send(`Building has begun at ${location}. PVP begins in 30 minutes.`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
-        cron.schedule(`30 ${((i * 2) + 4) % 24} * * *`, () => {
-            const channel = client.channels.cache.get(channelId);
-            channel.send(`PVP has begun.`)
+        
+        cron.schedule(`30 ${((i * 2)) % 24} * * *`, () => {
+            channel.send(`PVP has begun at ${location}.`)
                 .catch(error => console.error(`Failed to send message: ${error}`));
         });
     }
