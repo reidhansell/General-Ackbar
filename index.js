@@ -4,7 +4,7 @@ const cron = require('node-cron');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-const channelId = '1088842972558270485';
+const channelId = '1136616565765320784';
 
 client.login(token).catch(error => {
     console.error(`Failed to login: ${error}`);
